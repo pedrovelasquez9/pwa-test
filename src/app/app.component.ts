@@ -30,6 +30,18 @@ export class AppComponent implements OnInit{
 				}
 				deferredPrompt = null;
 			});
+		btn.addEventListener('click', ()=>{
+			deferredPrompt.prompt();
+			deferredPrompt.userChoice
+			.then((choiceResult) => {
+				if (choiceResult.outcome === 'accepted') {
+				console.log('User accepted the prompt');
+				} else {
+				console.log('User dismissed the prompt');
+				}
+				deferredPrompt = null;
+			});
+		})
 	  });
 
 	

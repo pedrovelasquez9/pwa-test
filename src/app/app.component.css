@@ -3,3 +3,13 @@ body{
 	-webkit-tap-highlight-color: transparent;
 	-webkit-touch-callout: none;
 }
+
+#btnAdd{
+	background-color: #9bca3d;
+    color: #fff;
+    font-size: 20px;
+    border-radius: 5px;
+    border: none;
+    padding: 10px;
+    font-weight: 700;
+}
