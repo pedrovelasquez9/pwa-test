@@ -44,7 +44,18 @@ export class AppComponent implements OnInit{
 		})
 	  });
 
-	
+	//detectar ios
+	const isIos = () => {
+		const userAgent = window.navigator.userAgent.toLowerCase();
+		return /iphone|ipad|ipod/.test( userAgent );
+	  }
+	  
+	  // Checks if should display install popup notification:
+	  if (isIos()) {
+		let btn = document.getElementById('btnAdd');
+		btn.hidden = true;
+		alert("Puedes instalar esta PWA desde el menú 'compartir' de safari");
+	  }
 	  
 	  if(this.swUpdate.isEnabled){
 		  this.swUpdate.available.subscribe(()=>{
