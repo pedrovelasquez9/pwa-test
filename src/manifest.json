@@ -1,11 +1,11 @@
 {
-  "name": "pwa-test",
-  "short_name": "pwa-test",
+  "name": "PWA IT",
+  "short_name": "PWA IT",
   "theme_color": "#1976d2",
-  "background_color": "#fafafa",
+  "background_color": "#fff",
   "display": "standalone",
-  "scope": "https://technoimpact.net/pwa-test/",
-  "start_url": "https://technoimpact.net/pwa-test/",
+  "scope": "https://technoimpact.net/pwa-demo-it/",
+  "start_url": "https://technoimpact.net/pwa-demo-it/",
   "icons": [
     {
       "src": "assets/icons/icon-72x72.png",

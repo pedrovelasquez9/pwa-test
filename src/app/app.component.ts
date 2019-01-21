@@ -10,7 +10,34 @@ export class AppComponent implements OnInit{
   title = 'pwa-test';
 
   constructor(private swUpdate: SwUpdate){
+	
+  }
 
+  ngAfterViewInit(){
+	let footer = document.getElementById('footer');
+	footer.hidden = true;
+	//detectar ios
+	const isIos = () => {
+		const userAgent = window.navigator.userAgent.toLowerCase();
+		return /iphone|ipad|ipod/.test( userAgent );
+	  }
+	  
+	  // Checks if should display install popup notification:
+	  if (isIos()) {
+		let btn = document.getElementById('btnAdd');
+		let footer = document.getElementById('footer');
+		btn.hidden = true;
+		footer.hidden = false;
+
+	  }
+	  
+	  if(this.swUpdate.isEnabled){
+		  this.swUpdate.available.subscribe(()=>{
+			if(confirm("Nueva versión disponible, quieres actualizar?")){
+				window.location.reload();
+			}
+		  })
+	  }
   }
 
   ngOnInit(){
@@ -44,25 +71,6 @@ export class AppComponent implements OnInit{
 		})
 	  });
 
-	//detectar ios
-	const isIos = () => {
-		const userAgent = window.navigator.userAgent.toLowerCase();
-		return /iphone|ipad|ipod/.test( userAgent );
-	  }
-	  
-	  // Checks if should display install popup notification:
-	  if (isIos()) {
-		let btn = document.getElementById('btnAdd');
-		btn.hidden = true;
-		alert("Puedes instalar esta PWA desde el menú 'compartir' de safari");
-	  }
-	  
-	  if(this.swUpdate.isEnabled){
-		  this.swUpdate.available.subscribe(()=>{
-			if(confirm("Nueva versión disponible, quieres actualizar?")){
-				window.location.reload();
-			}
-		  })
-	  }
+	
   }
 }

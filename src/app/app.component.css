@@ -2,6 +2,7 @@ body{
 	-webkit-user-select: none;
 	-webkit-tap-highlight-color: transparent;
 	-webkit-touch-callout: none;
+	flex: 1;
 }
 
 #btnAdd{
@@ -12,4 +13,16 @@ body{
     border: none;
     padding: 10px;
     font-weight: 700;
+}
+
+.footer {
+	position: fixed; 
+	bottom: 0;
+	width: 100%;
+	background-color:#f1eded;
+	color: black;
+	text-align: center;
+	left: 0;
+	right: 0;
+	padding: 10px 0px 10px 0px;
 }
