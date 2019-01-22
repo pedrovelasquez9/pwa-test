@@ -8,27 +8,40 @@ import { SwUpdate } from '@angular/service-worker';
 })
 export class AppComponent implements OnInit{
   title = 'pwa-test';
+  private top;
+  private footer;
+  private btn;
 
   constructor(private swUpdate: SwUpdate){
 	
   }
 
   ngAfterViewInit(){
-	let footer = document.getElementById('footer');
-	footer.hidden = true;
+	this.btn = document.getElementById('btnAdd');
+	this.footer = document.getElementById('footer');
+	this.top = document.getElementById('navbar');
+	this.footer.hidden = true;
+	this.top.hidden = true;
 	//detectar ios
-	const isIos = () => {
+	const isIPhone = () => {
 		const userAgent = window.navigator.userAgent.toLowerCase();
-		return /iphone|ipad|ipod/.test( userAgent );
+		return /iphone|ipod/.test( userAgent );
 	  }
+
+	const isIPad = () => {
+		const userAgent = window.navigator.userAgent.toLowerCase();
+		return /ipad/.test( userAgent );
+	}
 	  
 	  // Checks if should display install popup notification:
-	  if (isIos()) {
-		let btn = document.getElementById('btnAdd');
-		let footer = document.getElementById('footer');
-		btn.hidden = true;
-		footer.hidden = false;
+	  if (isIPhone()) {
+		this.btn.hidden = true;
+		this.footer.hidden = false;
+	  }
 
+	  if (isIPad()) {
+		this.btn.hidden = true;
+		this.top.hidden = false;
 	  }
 	  
 	  if(this.swUpdate.isEnabled){
@@ -38,6 +51,27 @@ export class AppComponent implements OnInit{
 			}
 		  })
 	  }
+
+	  window.addEventListener('appinstalled', (event) => {
+		console.log('installed');
+		this.top.hidden = true;
+		this.btn.hidden = true;
+		this.footer.hidden = true;
+	   });
+
+	   if (window.matchMedia('(display-mode: standalone)').matches) {
+		console.log('display-mode is standalone');
+		this.top.hidden = true;
+		this.btn.hidden = true;
+		this.footer.hidden = true;
+	  }
+
+	  if (('standalone' in window.navigator) && (window.navigator['standalone'])) {
+		console.log('display-mode is standalone');
+		this.btn.hidden = true;
+		this.footer.hidden = true;
+		this.top.hidden = true;
+	  }
   }
 
   ngOnInit(){
@@ -45,7 +79,6 @@ export class AppComponent implements OnInit{
 	window.addEventListener('beforeinstallprompt', (e) => {
 		e.preventDefault();
 		deferredPrompt = e;
-		let btn = document.getElementById('btnAdd');
 	  
 			deferredPrompt.prompt();
 			deferredPrompt.userChoice
@@ -57,7 +90,7 @@ export class AppComponent implements OnInit{
 				}
 				deferredPrompt = null;
 			});
-		btn.addEventListener('click', ()=>{
+		this.btn.addEventListener('click', ()=>{
 			deferredPrompt.prompt();
 			deferredPrompt.userChoice
 			.then((choiceResult) => {
@@ -70,7 +103,5 @@ export class AppComponent implements OnInit{
 			});
 		})
 	  });
-
-	
   }
 }
