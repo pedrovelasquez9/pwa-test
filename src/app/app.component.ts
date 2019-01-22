@@ -23,23 +23,15 @@ export class AppComponent implements OnInit{
 	this.footer.hidden = true;
 	this.top.hidden = true;
 	//detectar ios
-	const isIPhone = () => {
-		const userAgent = window.navigator.userAgent.toLowerCase();
-		return /iphone|ipod/.test( userAgent );
-	  }
-
-	const isIPad = () => {
-		const userAgent = window.navigator.userAgent.toLowerCase();
-		return /ipad/.test( userAgent );
-	}
+	
 	  
 	  // Checks if should display install popup notification:
-	  if (isIPhone()) {
+	  if (this.isIPhone()) {
 		this.btn.hidden = true;
 		this.footer.hidden = false;
 	  }
 
-	  if (isIPad()) {
+	  if (this.isIPad()) {
 		this.btn.hidden = true;
 		this.top.hidden = false;
 	  }
@@ -73,6 +65,32 @@ export class AppComponent implements OnInit{
 		this.top.hidden = true;
 	  }
   }
+
+  	isIPhone = () => {
+		const userAgent = window.navigator.userAgent.toLowerCase();
+		return /iphone|ipod/.test( userAgent );
+	  }
+
+	isIPad = () => {
+		const userAgent = window.navigator.userAgent.toLowerCase();
+		return /ipad/.test( userAgent );
+	}
+
+  getMarginTop(){
+	  if(this.isIPad()){
+		return "100px";
+	  }else{
+		  return "0px";
+	  }
+  }
+
+  getMarginBottom(){
+	if(this.isIPhone()){
+	  return "100px";
+	}else{
+		return "0px";
+	}
+}
 
   ngOnInit(){
 	let deferredPrompt;
